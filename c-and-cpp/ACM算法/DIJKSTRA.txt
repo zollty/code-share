@@ -1,0 +1,36 @@
+#include<iostream>
+using namespace std;
+int main()
+{int DIJKSTRA(int a[][4],int k,int n);
+int a[][4]={{0,3,1,10000},{3,0,3,2},{1,3,0,5},{10000,2,5,0}};int k=1;int n=4,i;
+DIJKSTRA(a,k,n);
+return 0;
+}
+int DIJKSTRA(int a[][4],int k,int n)
+{int path[4],dist[4],i,j,p,wm;
+k=k-1;
+for(i=0;i<n;i++)
+{dist[i]=a[k][i];
+	if(dist[i]<10000)	path[i]=k+1;
+	else	path[i]=0;
+}
+path[k]=0;dist[k]=0;
+a[1][1]=1;
+for(j=0;j<(n-1);j++)
+	{wm=10000;p=-1;
+	for(i=0;i<n;i++)
+		if((a[i][i]==0)&&(dist[i]<wm))	{p=i;wm=dist[i];}
+		if(p==-1)	break;
+		else	{a[p][p]=1;
+				 for(i=0;i<n;i++)
+					 if(a[i][i]==0)
+						 if(dist[p]+a[p][i]<dist[i])
+						 {dist[i]=dist[p]+a[p][i];path[i]=p+1;}
+				}
+	};
+for(i=0;i<n;i++)
+cout<<path[i]<<" "<<endl;
+for(i=0;i<n;i++)
+cout<<dist[i]<<" "<<endl;
+return 0;
+}
